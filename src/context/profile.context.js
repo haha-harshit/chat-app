@@ -1,13 +1,33 @@
 
 // *** PROFILE PROVIDER *** //
 
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
+import { auth } from "../misc/firebase";
 
 const ProfileContext = createContext()
 
 export const ProfileProvider = ({children})=> {
 
-    const [profile] = useState(false)
+    const [profile, setProfile] = useState(null);
+
+    useEffect(()=> {
+        auth.onAuthStateChanged(authObj => {
+            
+            // console.log('authObj', authObj)
+            
+            if(authObj){
+                const data = {
+                    uid: authObj.uid,
+                    name: authObj.name,
+                    email: authObj.email
+                }
+                setProfile(data);
+            }else{
+                setProfile(null)
+            }
+
+        });
+    }, []);
 
     return (
     <ProfileContext.Provider value={profile}>
