@@ -2,39 +2,68 @@
 // *** PROFILE PROVIDER *** //
 
 import React, { createContext, useState, useContext, useEffect } from "react";
-import { auth } from "../misc/firebase";
+import { auth, database } from "../misc/firebase";
 
-const ProfileContext = createContext()
+const ProfileContext = createContext();
 
 export const ProfileProvider = ({children})=> {
-
     const [profile, setProfile] = useState(null);
-
+    const [isLoading, setIsLoading] = useState(true);
+    
+    const falsi =()=> setIsLoading(false);
     useEffect(()=> {
-        auth.onAuthStateChanged(authObj => {
+
+        let userRef;
+
+        const authUnsub = auth.onAuthStateChanged(authObj => {
             
             // console.log('authObj', authObj)
             
             if(authObj){
-                const data = {
-                    uid: authObj.uid,
-                    name: authObj.name,
-                    email: authObj.email
-                }
-                setProfile(data);
+                userRef = database.ref(`/profiles/${authObj.uid}`);
+                userRef.on('value', (snap)=>{
+                    const {name, createdAt} = snap.val();
+                    // console.log(profileData);
+                    
+                    const data = {
+                        name,
+                        createdAt,
+                        uid: authObj.uid,
+                        email: authObj.email
+                    }
+                    setProfile(data);
+                    setIsLoading(false);
+                })
+
             }else{
-                setProfile(null)
+
+                if(userRef){
+                    userRef.off()
+                }
+
+                setProfile(null);
+                // setIsLoading(false);
+                falsi();
             }
 
         });
+
+        return () => {
+            authUnsub();
+            if(userRef){
+                userRef.off();
+            }
+        }
     }, []);
 
     return (
-    <ProfileContext.Provider value={profile}>
-        {children}
-    </ProfileContext.Provider>
+        <ProfileContext.Provider value={{isLoading, profile}}>
+            {children}
+        </ProfileContext.Provider>
     )
 }
 
 // a custom hook for easy access of profile context (outer wrapper)
-export const useProfile = ()=> useContext(ProfileContext);
+export const useProfile = ()=> {
+    return useContext(ProfileContext)
+};
