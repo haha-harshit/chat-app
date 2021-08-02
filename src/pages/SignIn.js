@@ -2,9 +2,10 @@ import React from 'react'
 import firebase from 'firebase/app';
 import { Container, Grid, Panel, Row, Col, Button, Icon, Alert } from 'rsuite'
 import { auth, database } from '../misc/firebase'
+// import { useProfile } from '../context/profile.context';
 
 export const SignIn = () => {
-
+    // const {profile} = useProfile();
     const signInWithProvider = async (provider)=> {
 
         try {
@@ -15,9 +16,13 @@ export const SignIn = () => {
                     name: user.displayName,
                     createdAt: firebase.database.ServerValue.TIMESTAMP
                 })
+
+                Alert.success('Hey welcome new user! You are now Signed In 😄', 5000);
+            }else{
+                
+                Alert.success(`Welcome back ${user.displayName} 😄`, 5000);
             }
 
-            Alert.success('Signed In', 4000);
         } catch (err) {
             Alert.error(err.message, 4000)
         }
