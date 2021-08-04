@@ -1,14 +1,27 @@
 import React from 'react'
-import { Button, Divider, Drawer } from 'rsuite'
+import { Alert, Button, Divider, Drawer } from 'rsuite'
 import { useProfile } from '../../context/profile.context'
+import { database } from '../../misc/firebase';
 import { EditableInput } from './EditableInput';
 
 export const Dashboard = ({onSignOut}) => {
     
     const {profile} = useProfile();
-    
+
     const onSave = async newData => {
         console.log(newData);
+        
+        // update to firebase database
+        const userNameRef = database.ref(`/profiles/${profile.uid}`).child('name');
+
+        try{
+        
+            await userNameRef.set(newData);
+            Alert.success('Username has been updated! 😄', 4000);
+        
+        }catch(err){
+            Alert.error(err.message, 4000);
+        }
     }
     
     return <>
@@ -29,7 +42,7 @@ export const Dashboard = ({onSignOut}) => {
                 name="username"
                 initialValue={profile.name}
                 onSave={onSave}
-                label={<h6 className="mb-2">Username</h6>}/>
+                label={<h6 className="mb-2">Your (In-Chat) Username</h6>}/>
         </Drawer.Body>
 
         {/* FOOTER */}
