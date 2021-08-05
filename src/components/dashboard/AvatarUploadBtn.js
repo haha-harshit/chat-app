@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { Alert, Button, Modal } from 'rsuite'
+import AvatarEditor from 'react-avatar-editor'
 import { useModalState } from '../../misc/custom-hooks'
 
-const fileInputTypes = '.png, .jpeg, .jpg';
+const fileInputTypes = '.png, .jpeg, .jpg, .svg';
 
 // acccepted MIME types
-const acceptedFileTypes = ['image/png', 'image/jpeg', 'image/pjpeg'];
+const acceptedFileTypes = ['image/png', 'image/jpeg', 'image/pjpeg', 'image/svg'];
 
 // helper function for check on valid MIME type
 const isValidFile = file => acceptedFileTypes.includes(file.type);
@@ -25,6 +26,7 @@ export const AvatarUploadBtn = () => {
         if(currFiles.length === 1){
             const file = currFiles[0];
 
+            // check for validation of MIME type
             if(isValidFile(file)){
                 console.log('VALID');
                 // set to state
@@ -35,10 +37,9 @@ export const AvatarUploadBtn = () => {
             }else{
                 console.log(file.type)
                 Alert.warning(`Wrong file type ${file.type}`, 4000);
-            }
-
-        }
-    }
+            };
+        };
+    };
 
     return (
         <div className="mt-3 text-center">
@@ -61,7 +62,20 @@ export const AvatarUploadBtn = () => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    xxx
+                    <div className="d-flex justify-content-center align-items-center h-100">
+                        {img && 
+                            <AvatarEditor
+                            image={img}
+                            width={200}
+                            height={200}
+                            border={10}
+                            // color={[255, 255, 255, 0.6]} // RGBA
+                            // scale={1.2}
+                            borderRadius={100}
+                            rotate={0}
+                        />
+                        }
+                    </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button block appearance="ghost">
