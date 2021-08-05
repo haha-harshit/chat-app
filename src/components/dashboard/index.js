@@ -2,6 +2,7 @@ import React from 'react'
 import { Alert, Button, Divider, Drawer } from 'rsuite'
 import { useProfile } from '../../context/profile.context'
 import { database } from '../../misc/firebase';
+import { AvatarUploadBtn } from './AvatarUploadBtn';
 import { EditableInput } from './EditableInput';
 import { ProviderBlock } from './ProviderBlock';
 
@@ -39,12 +40,18 @@ export const Dashboard = ({onSignOut}) => {
                 Hey, {profile.name}
             </h3>
             <ProviderBlock />
+            
             <Divider />
+            
+            {/* Name Field */}
             <EditableInput 
                 name="username"
                 initialValue={profile.name}
                 onSave={onSave}
                 label={<h6 className="mb-2">Your (In-Chat) Username</h6>}/>
+
+            {/* Avatar Field */}
+            <AvatarUploadBtn />
         </Drawer.Body>
 
         {/* FOOTER */}
