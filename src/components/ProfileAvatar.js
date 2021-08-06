@@ -1,6 +1,6 @@
 import React from 'react'
 import { Avatar } from 'rsuite'
-import { getNameInitials } from '../../misc/helpers'
+import { getNameInitials } from '../misc/helpers'
 
 export const ProfileAvatar = ( {name, ...avatarProps} ) => {
     return (

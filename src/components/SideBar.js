@@ -1,4 +1,6 @@
 import React from 'react'
+import { Divider } from 'rsuite'
+import { CreateRoomBtnModal } from './CreateRoomBtnModal'
 import { DashboardToggle } from './dashboard/DashboardToggle'
 
 export const SideBar = () => {
@@ -6,8 +8,11 @@ export const SideBar = () => {
         <div className="h-100 pt-2">
             <div>
                 <DashboardToggle />
+                <Divider />
+                <CreateRoomBtnModal />
             </div>
-            bottom
+            <Divider />
+            This is Footer
         </div>
     )
 }
