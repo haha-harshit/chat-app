@@ -78,7 +78,7 @@ export const ProviderBlock = () => {
                 isConnected["google.com"] && 
                 <Tag color="green" closable onClose={unLinkGoogle}>
                     <Icon icon="google">
-                        Connected
+                        &nbsp;&nbsp;Connected
                     </Icon>
                 </Tag>
             }
@@ -88,7 +88,7 @@ export const ProviderBlock = () => {
                 isConnected["facebook.com"] &&
                 <Tag color="blue" closable onClose={unLinkFacebook}>
                     <Icon icon="facebook">
-                        Connected
+                    &nbsp;&nbsp;Connected
                     </Icon>
                 </Tag>
             }
@@ -99,7 +99,7 @@ export const ProviderBlock = () => {
                 {
                     !isConnected["google.com"] &&
                     <Button block color="green" onClick={linkGoogle}>
-                        <Icon icon="google" />Link to Google
+                        <Icon icon="google" />&nbsp;&nbsp;Link to Google
                     </Button>
                 }
 
@@ -107,7 +107,7 @@ export const ProviderBlock = () => {
                 {
                     !isConnected["facebook.com"] &&
                     <Button block color="blue" onClick={linkFacebook}>
-                        <Icon icon="facebook" />Link to facebook
+                        <Icon icon="facebook" />&nbsp;&nbsp;Link to facebook
                     </Button>
                 }
 
