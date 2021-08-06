@@ -35,7 +35,7 @@ export const Dashboard = ({onSignOut}) => {
         </Drawer.Header>
         
         {/* BODY */}
-        <Drawer.Body>
+        <Drawer.Body className="custom-scroll">
             <h3>
                 Hey, {profile.name}
             </h3>

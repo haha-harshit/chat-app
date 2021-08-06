@@ -70,7 +70,7 @@ export const CreateRoomBtnModal = () => {
                     </Modal.Title>
                 </Modal.Header>
                 
-                <Modal.Body>
+                <Modal.Body className="custom-scroll">
                     <Form fluid onChange={onFormChange} formValue={formValue} model={model} ref={formRef}>
 
                         {/* Room Name */}

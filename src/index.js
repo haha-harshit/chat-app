@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+// import {rsuite} from "rsuite"
 
 import { BrowserRouter } from "react-router-dom";
 
@@ -7,7 +8,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
-    <BrowserRouter>
+    <BrowserRouter >
         <App />
     </BrowserRouter>,
     document.getElementById("root"));
