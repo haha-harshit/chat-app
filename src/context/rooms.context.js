@@ -13,7 +13,7 @@ export const RoomsProvider = ({children}) => {
 
         roomListRef.on('value', (snap)=> {
             const data = transformToArrWithId(snap.val())
-            console.log('data', data);
+            setRooms(data);
         })
 
         return ()=> {
@@ -21,5 +21,5 @@ export const RoomsProvider = ({children}) => {
         }
     }, [])
 
-    return <RoomsContext.Provider value="helloe">{children}</RoomsContext.Provider>
+    return <RoomsContext.Provider value={rooms}>{children}</RoomsContext.Provider>
 }
