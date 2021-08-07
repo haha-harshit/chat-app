@@ -1,8 +1,13 @@
 import React from 'react'
-import { Nav } from 'rsuite'
+import { Loader, Nav } from 'rsuite'
+import { useRooms } from '../../context/rooms.context'
 import { RoomItem } from './RoomItem'
 
 export const ChatRoomList = ({aboveElHeight}) => {
+
+    const rooms = useRooms();
+    // console.log('rooms: from ChatRoomList:',rooms);
+
     return (
         <Nav
             appearance="subtle"
@@ -13,11 +18,19 @@ export const ChatRoomList = ({aboveElHeight}) => {
                 height: `calc(100% - ${aboveElHeight}px)`
             }} 
         >
-            <Nav.Item>
-                
-                <RoomItem />
+            {/* if no rooms */}
+            {!rooms && (
+                <Loader center vertical content="Loading Rooms..." speed="slow" size="md"/>
+            )}
 
-            </Nav.Item>
+            {rooms && rooms.length > 0 && rooms.map(room => 
+                (
+                    <Nav.Item key={room.id}>    
+                        <RoomItem room={room}/>
+                    </Nav.Item> 
+                )
+            )}
+
         </Nav>
     )
 }
