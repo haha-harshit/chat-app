@@ -33,3 +33,5 @@ export const RoomInfoBtnModal = () => {
         </>
     );
 };
+
+export const MemoizedRoomInfoBtnModal = React.memo(RoomInfoBtnModal);
