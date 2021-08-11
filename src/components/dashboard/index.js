@@ -5,6 +5,7 @@ import { database } from '../../misc/firebase';
 import { AvatarUploadBtn } from './AvatarUploadBtn';
 import { EditableInput } from '../EditableInput';
 import { ProviderBlock } from './ProviderBlock';
+import { getUserUpdates } from '../../misc/helpers';
 
 export const Dashboard = ({onSignOut}) => {
     
@@ -14,12 +15,18 @@ export const Dashboard = ({onSignOut}) => {
         console.log(newData);
         
         // update to firebase database
-        const userNameRef = database.ref(`/profiles/${profile.uid}`).child('name');
+        // const userNameRef = database.ref(`/profiles/${profile.uid}`).child('name');
 
         try{
-        
-            await userNameRef.set(newData);
+            
+            // await userNameRef.set(newData);
+
+            const updates = await getUserUpdates(profile.uid, 'name', newData, database);
+            
+            await database.ref().update(updates);
+
             Alert.success('Username has been updated! 😄', 4000);
+
         
         }catch(err){
             Alert.error(err.message, 4000);

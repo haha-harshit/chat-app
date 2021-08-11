@@ -5,6 +5,7 @@ import { useModalState } from '../../misc/custom-hooks'
 import { database, storage } from '../../misc/firebase';
 import { useProfile } from '../../context/profile.context';
 import { ProfileAvatar } from '../ProfileAvatar';
+import { getUserUpdates } from '../../misc/helpers';
 
 const fileInputTypes = '.png, .jpeg, .jpg, .svg';
 
@@ -72,11 +73,16 @@ export const AvatarUploadBtn = () => {
                 cacheControl: `public, max-age=${3600 * 24 * 3}`
             });
 
-            const dowloadUrl = await uploadAvatarResult.ref.getDownloadURL();
+            const downloadUrl = await uploadAvatarResult.ref.getDownloadURL();
 
-            const userAvatarRef = database.ref(`/profiles/${profile.uid}`).child('avatar');
+            const updates = await getUserUpdates(profile.uid, 'avatar', downloadUrl, database);
 
-            await userAvatarRef.set(dowloadUrl);
+            // const userAvatarRef = database.ref(`/profiles/${profile.uid}`).child('avatar');
+
+            // await userAvatarRef.set(downloadUrl);
+
+            await database.ref().update(updates);
+
             setIsLoading(false);
             Alert.success('Avatar has been uploaded', 4000);
             close();
