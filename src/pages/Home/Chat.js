@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router';
 import { Loader } from 'rsuite';
-import { ChatTop, MemoizedChatTop } from '../../components/chat-window/top';
+import { MemoizedChatTop } from '../../components/chat-window/top';
 import { Messages } from '../../components/chat-window/messages'
 import { ChatBottom } from '../../components/chat-window/bottom'
 import { useRooms } from '../../context/rooms.context';
