@@ -2,6 +2,7 @@ import React from 'react'
 import TimeAgo from 'timeago-react';
 import { useProfile } from '../../../context/profile.context';
 import { ProfileAvatar } from '../../ProfileAvatar';
+import { ProfileInfoBtnModal} from './ProfileInfoBtnModal';
 
 export const MessageItem = ({message}) => {
 
@@ -12,8 +13,8 @@ export const MessageItem = ({message}) => {
 
     const isOther = author.name !== profile.profile.name;
 
-    console.log(author.name);
-    console.log(profile.profile.name);
+    // console.log(author.name);
+    // console.log(profile.profile.name);
 
 
     return (
@@ -46,8 +47,12 @@ export const MessageItem = ({message}) => {
                 isOther &&     
                 <li className="padded mb-1">
                     <div className="d-flex align-items-center font-bolder mb-1">
+                        
                         <ProfileAvatar src={author.avatar} name={author.name} className="ml-1" size="s"/>
-                        <span className="ml-2"><strong>{author.name}</strong></span>
+                        
+                        {/* <span className="ml-2"><strong>{author.name}</strong></span> */}
+                        <ProfileInfoBtnModal profile={author} appearance="link" className="p-0 ml-1 text-black" />
+
                         <TimeAgo
                             datetime={createdAt} 
                             className="font-normal text-black-45 ml-2"
