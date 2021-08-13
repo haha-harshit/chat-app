@@ -1,6 +1,7 @@
 import React from 'react'
 import TimeAgo from 'timeago-react';
 import { useProfile } from '../../../context/profile.context';
+import { PresenceDot } from '../../PresenceDot';
 import { ProfileAvatar } from '../../ProfileAvatar';
 import { ProfileInfoBtnModal} from './ProfileInfoBtnModal';
 
@@ -27,6 +28,9 @@ export const MessageItem = ({message}) => {
                     <div>
                     <p className="float-right">
                     <div className="d-flex align-items-center font-bolder mb-1">
+
+                        <PresenceDot uid={author.uid} />
+
                         <ProfileAvatar src={author.avatar} name={author.name} className="ml-1" size="s"/>
                         
                         <TimeAgo
@@ -48,10 +52,12 @@ export const MessageItem = ({message}) => {
                 <li className="padded mb-1">
                     <div className="d-flex align-items-center font-bolder mb-1">
                         
+                        <PresenceDot uid={author.uid} />
+
                         <ProfileAvatar src={author.avatar} name={author.name} className="ml-1" size="s"/>
                         
                         {/* <span className="ml-2"><strong>{author.name}</strong></span> */}
-                        <ProfileInfoBtnModal profile={author} appearance="link" className="p-0 ml-1 text-black" />
+                        <ProfileInfoBtnModal profile={author} uid={author.uid} appearance="link" className="p-0 ml-1 text-black" />
 
                         <TimeAgo
                             datetime={createdAt} 
